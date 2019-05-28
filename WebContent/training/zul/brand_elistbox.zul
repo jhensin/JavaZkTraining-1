@@ -1,0 +1,105 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<window id="mainWin" width="100%" height="100%"
+	apply="com.tp.training.ctrler.BrandElistboxController">
+	<!-- 
+		1. <panel> 是區塊元件，用此元件做為一個資料資料區域的做外層
+		2. <caption> 區是它的標題區，會放置該區的標題，及編輯按鈕
+	-->
+	<panel height="100%">
+		<caption>
+			<label mlkey="traning.label.brandWin" multiline="true" />
+			<!-- 查詢功能 -->
+			<basebutton id="queryBtn" mode="query" />
+			<window id="queryWin" mlkey="baselib.btn.query"
+				visible="false" width="350px" height="190px">
+				<vlayout width="100%" height="100%">
+					<qgrid id="qgrid" vflex="1">
+						<columns>
+							<column width="40%" />
+							<column width="60%" />
+						</columns>
+						<rows>
+							<row>
+								<coltitle mlkey="traning.label.brandNo" />
+								<textbox fld="BRAND_NO" upper="true" />
+							</row>
+							<row>
+								<coltitle
+									mlkey="traning.label.brandName" />
+								<textbox fld="BRAND_NAME" />
+							</row>
+						</rows>
+					</qgrid>
+					<div align="center">
+						<basebutton id="cancelQueryBtn" mode="cancel" />
+						<basebutton id="confirmQueryBtn" mode="ok" />
+					</div>
+				</vlayout>
+			</window>
+			<!-- 增/修/刪 按鈕 -->
+			<editbuttons id="masterEbtns" btns="AMDSC"></editbuttons>
+		</caption>
+		<panelchildren>
+			<!-- 1. <elistbox> 繼承 <listbox>，增加了有關編輯的功能 
+				2.boundBtns 是設定要與哪一個 <editbuttons> 做搭配-->
+			<elistbox id="masterLbox" boundBtns="${masterEbtns}"
+				span="true" multiple="true" checkmark="true" showRowNum="true"
+				vflex="1">
+				<listhead>
+					<listheader width="40px" />
+					<listheader width="100px" sort="auto( BRAND_NO )"
+						mlkey="traning.label.brandNo" />
+					<listheader width="100px" sort="auto( BRAND_CODE )"
+						mlkey="traning.label.brandCode" />
+					<listheader width=" 100 px "
+						sort="auto( BRAND_NAME )" mlkey="traning.label.brandName" />
+					<listheader width="100px" sort="auto( IS_VIP )"
+						mlkey="traning.label.brandIsVip" />
+					<listheader width="50px" sort="auto( CREATE_BY )"
+						mlkey="baselib.col.creator" />
+					<listheader width="115px" sort="auto( CREATE_DATE )"
+						mlkey="baselib.col.createDate" />
+					<listheader width="50px" sort="auto( MODIFY_BY )"
+						mlkey="baselib.col.modifier" />
+					<listheader width="115px" sort="auto( MODIFY_DATE )"
+						mlkey="baselib.col.modifyDate" />
+				</listhead>
+				<!-- 1. 由於 Elistbox 是多筆呈現的，所以用 <template> 來設定單一筆的長相，它會自動依資料量，再
+					依此樣版來產生出多筆實體
+					2. <template> 不是元件
+				-->
+				<template name="model">
+					<listitem>
+						<listcell />
+						<listcell>
+							<textbox fld="BRAND_NO" upper="true"
+								insertOnly="true" requiredForBean="true" />
+						</listcell>
+						<listcell>
+							<textbox fld="BRAND_CODE" upper="true"
+								maxlength="2" insertOnly="true" requiredForBean="true" />
+						</listcell>
+						<listcell>
+							<textbox fld="BRAND_NAME" />
+						</listcell>
+						<listcell>
+							<checkbox fld="IS_VIP" />
+						</listcell>
+						<listcell>
+							<userlabel fld="CREATE_BY" />
+						</listcell>
+						<listcell>
+							<label fld="CREATE_DATE" />
+						</listcell>
+						<listcell>
+							<userlabel fld="MODIFY_BY" />
+						</listcell>
+						<listcell>
+							<label fld="MODIFY_DATE" />
+						</listcell>
+					</listitem>
+				</template>
+			</elistbox>
+		</panelchildren>
+	</panel>
+</window>
